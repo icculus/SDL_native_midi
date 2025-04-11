@@ -21,7 +21,9 @@ add_library(SDL_native_midi SHARED
 )
 target_include_directories(SDL_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
 target_link_libraries(SDL_native_midi PRIVATE ${SDL3_LIBRARIES})
-target_link_libraries(SDL_native_midi PRIVATE -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,CoreServices)
+if(APPLE)
+    target_link_libraries(SDL_native_midi PRIVATE -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,CoreServices)
+endif()
 
 add_executable(test_sdl_native_midi test/test_sdl_native_midi.c)
 target_link_libraries(test_sdl_native_midi PRIVATE SDL_native_midi)
