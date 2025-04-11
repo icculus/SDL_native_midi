@@ -20,11 +20,12 @@ add_library(SDL_native_midi SHARED
     ${SDL_NATIVE_MIDI_EXTRA_SOURCES}
 )
 target_include_directories(SDL_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
-target_link_libraries(SDL_native_midi ${SDL3_LIBRARIES})
+target_link_libraries(SDL_native_midi PRIVATE ${SDL3_LIBRARIES})
+target_link_libraries(SDL_native_midi PRIVATE -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,CoreServices)
 
 add_executable(test_sdl_native_midi test/test_sdl_native_midi.c)
-target_link_libraries(test_sdl_native_midi SDL_native_midi)
+target_link_libraries(test_sdl_native_midi PRIVATE SDL_native_midi)
+target_link_libraries(test_sdl_native_midi PRIVATE ${SDL3_LIBRARIES})
 target_include_directories(test_sdl_native_midi PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
 target_include_directories(test_sdl_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
-target_link_libraries(test_sdl_native_midi ${SDL3_LIBRARIES})
 
