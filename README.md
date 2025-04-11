@@ -26,6 +26,10 @@ code on Windows, the preprocessor will remove the entire source file, etc.
 There is nothing to configure, just compile all the files and link against
 SDL3. You don't have to use the included CMake file.
 
+Linux builds will need access to the ALSA headers (On Ubuntu, you can
+run `sudo apt-get install libasound-dev`). They do not need to link to ALSA
+directly. Every other platform should work out of the box.
+
 This code likely has bugs, possibly obvious ones; please don't hesistate
 to file a bug report and we'll help, but we aren't actively using this code
 to find them ourselves.

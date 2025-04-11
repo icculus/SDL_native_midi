@@ -18,8 +18,13 @@ jobs:
       uses: libsdl-org/setup-sdl@v1
       with:
         version: sdl3-latest
+    - name: Set up Linux dependencies
+      if: ${{ runner.os == 'Linux' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install cmake libasound2-dev
     - name: Get SDL_native_midi sources
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Configure CMake
       run: cmake -B build ${{ matrix.platform.flags }}
     - name: Build
