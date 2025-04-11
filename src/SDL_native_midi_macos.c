@@ -116,6 +116,7 @@ static OSStatus GetSequenceAudioUnitMatching(MusicSequence sequence, AudioUnit *
     return kAUGraphErr_NodeNotFound;
 }
 
+#if 0  // !!! FIXME: needs the soundfont APIs from SDL2_Mixer. Is this necessary...?
 typedef struct
 {
     AudioUnit aunit;
@@ -177,6 +178,7 @@ static void SetSequenceSoundFont(MusicSequence sequence)
         CFRelease(ctx.default_url);
     }
 }
+#endif
 
 bool NativeMidi_Init(void)
 {
@@ -284,7 +286,9 @@ void NativeMidi_Start(NativeMidi_Song *song, int loops)
 
         MusicPlayerPreroll(song->player);
         GetSequenceAudioUnitMatching(song->sequence, &song->audiounit, kAudioUnitType_Output, kAudioUnitSubType_DefaultOutput);
+        #if 0  // !!! FIXME: needs the soundfont APIs from SDL2_Mixer. Is this necessary...?
         SetSequenceSoundFont(song->sequence);
+        #endif
 
         const float vol = latched_volume;
         latched_volume += 1.0f;  // +1 just make this not match.
