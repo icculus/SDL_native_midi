@@ -13,6 +13,8 @@ jobs:
         - { name: Windows, os: windows-2025 }
         - { name: MacOS,   os: macos-latest }
     steps:
+    - name: Get SDL_native_midi sources
+      uses: actions/checkout@v4
     - name: Set up Linux dependencies
       if: ${{ runner.os == 'Linux' }}
       run: |
@@ -31,8 +33,6 @@ jobs:
       with:
         version: sdl3-latest
         cmake-generator: Ninja
-    - name: Get SDL_native_midi sources
-      uses: actions/checkout@v4
     - name: Configure CMake
       run: cmake -B build -G Ninja ${{ matrix.platform.flags }}
     - name: Build
