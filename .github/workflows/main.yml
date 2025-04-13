@@ -13,19 +13,27 @@ jobs:
         - { name: Windows, os: windows-2025 }
         - { name: MacOS,   os: macos-latest }
     steps:
-    - name: Set up SDL
-      id: sdl
-      uses: libsdl-org/setup-sdl@v1
-      with:
-        version: sdl3-latest
     - name: Set up Linux dependencies
       if: ${{ runner.os == 'Linux' }}
       run: |
         sudo apt-get update
         sudo apt-get -y install cmake libasound2-dev
+    - name: Set up MSVC toolchain
+      uses: ilammy/msvc-dev-cmd@v1
+      if: ${{ matrix.platform.name == 'Windows' }}
+      with:
+        arch: x64
+    - name: Set up ninja
+      uses: ./.github/actions/setup-ninja
+    - name: Set up SDL
+      id: sdl
+      uses: libsdl-org/setup-sdl@v1
+      with:
+        version: sdl3-latest
+        cmake-generator: Ninja
     - name: Get SDL_native_midi sources
       uses: actions/checkout@v4
     - name: Configure CMake
-      run: cmake -B build ${{ matrix.platform.flags }}
+      run: cmake -B build -G Ninja ${{ matrix.platform.flags }}
     - name: Build
       run: cmake --build build/
