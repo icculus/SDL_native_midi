@@ -31,7 +31,6 @@
 #define _GNU_SOURCE 1
 #endif
 
-#include <alsa/asoundef.h>
 #include <alsa/asoundlib.h>
 
 #include <errno.h>
