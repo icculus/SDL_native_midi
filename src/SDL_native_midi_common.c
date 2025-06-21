@@ -302,6 +302,7 @@ static int ReadMIDIFile(MIDIFile *mididata, SDL_IOStream *src)
     if (!SDL_ReadU16BE(src, &division)) {
         goto bail;
     }
+    mididata->division = division;
 
     for (i = 0; i < tracks; i++) {
         if (!SDL_ReadU32BE(src, &ID)) {
