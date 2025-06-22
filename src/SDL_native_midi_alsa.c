@@ -19,10 +19,6 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "SDL_native_midi_common.h"
-
-#ifdef SDL_PLATFORM_LINUX
-
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
 #endif
@@ -30,6 +26,10 @@
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE 1
 #endif
+
+#include "SDL_native_midi_common.h"
+
+#ifdef SDL_PLATFORM_LINUX
 
 #include <alsa/asoundlib.h>
 
