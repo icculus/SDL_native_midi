@@ -274,8 +274,18 @@ void NativeMidi_DestroySong(NativeMidi_Song *song)
     }
 }
 
+static NativeMidi_Song* paused_song = NULL;
+static MusicTimeStamp paused_time = 0;
+static bool resume = false;
+
 void NativeMidi_Start(NativeMidi_Song *song, int loops)
 {
+    if (!resume) {
+        // If we are not resuming a paused song, clear any existing paused info.
+        paused_song = NULL;
+        paused_time = 0;
+    }
+
     if (song) {
         if (currentsong) {
             MusicPlayerStop(currentsong->player);
@@ -294,17 +304,29 @@ void NativeMidi_Start(NativeMidi_Song *song, int loops)
         latched_volume += 1.0f;  // +1 just make this not match.
         NativeMidi_SetVolume(vol);
 
-        MusicPlayerSetTime(song->player, 0);
+        MusicPlayerSetTime(song->player, resume ? paused_time : 0);
         MusicPlayerStart(song->player);
     }
 }
 
 void NativeMidi_Pause(void)
 {
+    if (currentsong) {
+        paused_song = currentsong;
+        MusicPlayerGetTime(currentsong->player, &paused_time);
+        NativeMidi_Stop();
+    }
 }
 
 void NativeMidi_Resume(void)
 {
+    if (paused_song) {
+        resume = true;
+        NativeMidi_Start(paused_song, paused_song->loops);
+        paused_song = NULL;
+        paused_time = 0;
+        resume = false;
+    }
 }
 
 void NativeMidi_Stop(void)
