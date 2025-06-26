@@ -21,6 +21,7 @@ add_library(SDL_native_midi SHARED
 )
 target_include_directories(SDL_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
 target_link_libraries(SDL_native_midi PRIVATE ${SDL3_LIBRARIES})
+set_property(TARGET SDL_native_midi PROPERTY DEFINE_SYMBOL "DLL_EXPORT")
 if(WIN32)
     target_link_libraries(SDL_native_midi PRIVATE winmm)
 endif()
