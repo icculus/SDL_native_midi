@@ -340,16 +340,27 @@ void NativeMidi_Stop(void)
 bool NativeMidi_Active(void)
 {
     MusicTimeStamp currentTime = 0;
-    if (currentsong == NULL) {
+    NativeMidi_Song* song = currentsong ? currentsong : paused_song;
+
+    if (song == NULL) {
         return false;
     }
+    
+    if (paused_song) {
+        currentTime = paused_time;
+    } else {
+        MusicPlayerGetTime(song->player, &currentTime);
+    }
 
-    MusicPlayerGetTime(currentsong->player, &currentTime);
-    if ((currentTime < currentsong->endTime) || (currentTime >= kMusicTimeStamp_EndOfTrack)) {
+    if ((currentTime < song->endTime) || (currentTime >= kMusicTimeStamp_EndOfTrack)) {
         return true;
-    } else if (currentsong->loops) {
-        --currentsong->loops;
-        MusicPlayerSetTime(currentsong->player, 0);
+    } else if (song->loops) {
+        --song->loops;
+        if (paused_song) {
+            paused_time = 0;
+        } else {
+            MusicPlayerSetTime(song->player, 0);
+        }
         return true;
     }
     return false;
