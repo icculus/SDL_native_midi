@@ -51,9 +51,8 @@ extern SDL_DECLSPEC NativeMidi_Song * SDLCALL NativeMidi_LoadSong(const char *pa
 extern SDL_DECLSPEC void SDLCALL NativeMidi_DestroySong(NativeMidi_Song *song);
 extern SDL_DECLSPEC void SDLCALL NativeMidi_Start(NativeMidi_Song *song, int loops);
 
-// !!! FIXME: these are not hooked up on several platforms.
-// implemented for alsa, macos, win32.
-// functions currently do nothing for haiku.
+/* !!! FIXME: these are not hooked up on Haiku OS! */
+/* (Works on ALSA, macOS, and Windows, though!) */
 extern SDL_DECLSPEC void SDLCALL NativeMidi_Pause(void);
 extern SDL_DECLSPEC void SDLCALL NativeMidi_Resume(void);
 
