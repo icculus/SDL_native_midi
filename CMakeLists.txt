@@ -19,6 +19,14 @@ add_library(SDL_native_midi SHARED
     src/SDL_native_midi_macos.c
     ${SDL_NATIVE_MIDI_EXTRA_SOURCES}
 )
+
+target_include_directories(SDL_native_midi
+    PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    PRIVATE
+        ${SDL3_INCLUDE_DIRS}
+)
+
 target_include_directories(SDL_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
 target_link_libraries(SDL_native_midi PRIVATE ${SDL3_LIBRARIES})
 set_property(TARGET SDL_native_midi PROPERTY DEFINE_SYMBOL "DLL_EXPORT")
@@ -32,6 +40,6 @@ endif()
 add_executable(test_sdl_native_midi test/test_sdl_native_midi.c)
 target_link_libraries(test_sdl_native_midi PRIVATE SDL_native_midi)
 target_link_libraries(test_sdl_native_midi PRIVATE ${SDL3_LIBRARIES})
-target_include_directories(test_sdl_native_midi PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(test_sdl_native_midi PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(test_sdl_native_midi PRIVATE ${SDL3_INCLUDE_DIRS})
 

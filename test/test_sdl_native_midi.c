@@ -1,5 +1,4 @@
-#include <SDL3/SDL.h>
-#include "SDL_native_midi.h"
+#include <SDL3_native_midi/SDL_native_midi.h>
 
 int main(int argc, char **argv)
 {
