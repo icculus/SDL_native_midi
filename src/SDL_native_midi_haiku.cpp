@@ -267,10 +267,12 @@ void NativeMidi_Start(NativeMidi_Song *song, int loops)
 
 void NativeMidi_Pause(void)
 {
+    // !!! FIXME: NativeMidi_Pause is currently unimplemented on Haiku
 }
 
 void NativeMidi_Resume(void)
 {
+    // !!! FIXME: NativeMidi_Resume is currently unimplemented on Haiku
 }
 
 void NativeMidi_Stop(void)
