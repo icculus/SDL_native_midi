@@ -188,15 +188,15 @@ extern SDL_DECLSPEC void SDLCALL NativeMidi_Stop(void);
 /**
  * Check the status of the current song.
  *
- * If song is currently playing or paused, this function returns true.
- * Otherwise it returns false.
+ * If there is a current song that is playing or paused, this
+ * function returns true. Otherwise it returns false.
  *
  * \returns true if a song is active, false otherwise.
  */
 extern SDL_DECLSPEC bool SDLCALL NativeMidi_Active(void);
 
 /**
- * Set the volume for the song.
+ * Set the volume for the current song.
  *
  * The `volume` must be between 0 (silence) and 1 (full volume).
  * If outside that range, volume is clamped to 0 - 1.
