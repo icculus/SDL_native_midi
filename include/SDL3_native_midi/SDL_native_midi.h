@@ -201,7 +201,7 @@ extern SDL_DECLSPEC bool SDLCALL NativeMidi_Active(void);
  * The `volume` must be between 0 (silence) and 1 (full volume).
  * If outside that range, volume is clamped to 0 - 1.
  *
- * DICUSSION OF NATIVE MIDI VOLUME PROBLEMS IN WINDOWS:
+ * DISCUSSION OF NATIVE MIDI VOLUME PROBLEMS IN WINDOWS:
  *
  * It has been known since Windows Vista that Microsoft changed
  * the behavior of native midi volume control to change the global
